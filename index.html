@@ -1,120 +1,146 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#14251b">
-<title>FitZone</title>
-<style>
-body{margin:0;background:#101812;color:#fff;font-family:Arial,sans-serif;padding:20px}
-h1{color:#8bea68}h2{font-size:20px}
-.card{background:#202d24;padding:16px;border-radius:14px;margin:12px 0}
-button{background:#8bea68;color:#14251b;border:0;padding:12px;border-radius:9px;font-weight:bold}
-li{margin:12px 0}progress{width:100%;height:18px}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fitzone Fitness</title>
+
+  <style>
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      padding: 24px 16px;
+      background: #101b19;
+      color: #fff;
+      font-family: Arial, sans-serif;
+    }
+
+    main {
+      max-width: 520px;
+      margin: auto;
+    }
+
+    h1 { color: #aaff70; }
+
+    section {
+      background: #20332e;
+      padding: 20px;
+      border-radius: 16px;
+      margin: 20px 0;
+    }
+
+    input {
+      display: block;
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      border-radius: 8px;
+      border: 1px solid #65776f;
+    }
+
+    button {
+      background: #b7ff78;
+      color: #17301b;
+      padding: 12px 18px;
+      margin: 5px 4px 5px 0;
+      border: 0;
+      border-radius: 10px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .exercise {
+      display: block;
+      padding: 10px 0;
+    }
+
+    progress {
+      width: 100%;
+      height: 14px;
+      accent-color: #b7ff78;
+    }
+
+    #message { overflow-wrap: anywhere; }
+  </style>
 </head>
-  // Import the functions you need from the SDKs you need
-import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
-import {
-  getAuth,
-  createUserWithEmailAndPassword,
-  signInWithEmailAndPassword
-} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
 
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
-const firebaseConfig = {
-  apiKey: "AIzaSyAUcLCkVkVDeqZTsedXc4Eco4T1eKcC144",
-  authDomain: "fitzone-ce6d3.firebaseapp.com",
-  projectId: "fitzone-ce6d3",
-  storageBucket: "fitzone-ce6d3.firebasestorage.app",
-  messagingSenderId: "312285142683",
-  appId: "1:312285142683:web:e99d29565db620a338b03e",
-  measurementId: "G-8KX7X37M1B"
-};
-
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
-const auth = getAuth(app);
-  window.signUp = async function () {
-  const email = document.getElementById("email").value;
-  const password = document.getElementById("password").value;
-  const message = document.getElementById("authMessage");
-
-  try {
-    await createUserWithEmailAndPassword(auth, email, password);
-    message.textContent = "Account created successfully!";
-  } catch (error) {
-    message.textContent = error.message;
-  }
-};
-
-window.signIn = async function () {
-  const email = document.getElementById("email").value;
-  const password = document.getElementById("password").value;
-  const message = document.getElementById("authMessage");
-
-  try {
-    await signInWithEmailAndPassword(auth, email, password);
-    message.textContent = "Signed in successfully!";
-  } catch (error) {
-    message.textContent = error.message;
-  }
-};
 <body>
-<h1>💪 FitZone</h1>
-  <div class="card">
-  <h2>🔐 Sign in to FitZone</h2>
-  <input id="email" type="email" placeholder="Email address" required>
-  <br><br>
-  <input id="password" type="password" placeholder="Password" required>
-  <br><br>
-  <button type="button" onclick="signIn()">Sign In</button>
-  <button type="button" onclick="signUp()">Create Account</button>
-  <p id="authMessage">Sign in or create your account.</p>
-  </div>
-<p>Your fitness journey starts here.</p>
-<div class="card">
-<h2>Today's workout</h2>
-<label><input type="checkbox" onchange="update()"> Jumping jacks — 20 reps</label><br><br>
-<label><input type="checkbox" onchange="update()"> Squats — 15 reps</label><br><br>
-<label><input type="checkbox" onchange="update()"> Push-ups — 10 reps</label><br><br>
-<label><input type="checkbox" onchange="update()"> Plank — 30 seconds</label>
-<p id="count">0 of 4 completed</p>
-<progress id="bar" value="0" max="4"></progress>
-</div>
-<div class="card">
-<h2>💧 Water check-in</h2>
-<p>Glasses today: <b id="water">0</b></p>
-<button onclick="drink()">+ Add a glass</button>
-</div>
-<div class="card">
-<h2>🎯 Daily motivation</h2>
-<p>Small steps every day lead to progress. Keep going!</p>
-</div>
-<script>
-function update() {
-  const boxes = document.querySelectorAll(
-    'input[type="checkbox"]'
-  );
-  let n = [...boxes].filter(box => box.checked).length;
+  <main>
+    <h1>💪 Fitzone</h1>
 
-  document.getElementById("count").textContent =
-    n + " of 4 completed";
+    <section>
+      <h2>🔐 Sign in to Fitzone</h2>
 
-  document.getElementById("bar").value = n;
-}
+      <form id="authForm">
+        <input id="email" type="email"
+          placeholder="Email address" required>
 
-let w = 0;
+        <input id="password" type="password"
+          placeholder="Password" minlength="6" required>
 
-function drink() {
-  w++;
-  document.getElementById("water").textContent = w;
-}
-</script>
+        <button type="submit">Sign In</button>
+        <button type="button" id="createAccount">
+          Create Account
+        </button>
+      </form>
+
+      <p id="message" role="status">
+        Sign in or create your account.
+      </p>
+    </section>
+
+    <p>Your fitness journey starts here.</p>
+
+    <section>
+      <h2>Today's workout</h2>
+
+      <label class="exercise">
+        <input type="checkbox" class="workout">
+        Jumping jacks — 20 reps
+      </label>
+
+      <label class="exercise">
+        <input type="checkbox" class="workout">
+        Squats — 15 reps
+      </label>
+
+      <label class="exercise">
+        <input type="checkbox" class="workout">
+        Push-ups — 10 reps
+      </label>
+
+      <label class="exercise">
+        <input type="checkbox" class="workout">
+        Plank — 30 seconds
+      </label>
+
+      <p id="progressText">0 of 4 completed</p>
+      <progress id="progressBar" value="0" max="4"></progress>
+    </section>
+  </main>
+
+  <script type="module">
+    // Keep JavaScript here, not as visible page text.
+    const exercises = document.querySelectorAll(".workout");
+    const progressText = document.getElementById("progressText");
+    const progressBar = document.getElementById("progressBar");
+
+    function updateProgress() {
+      const completed = [...exercises]
+        .filter(item => item.checked).length;
+
+      progressText.textContent =
+        `${completed} of ${exercises.length} completed`;
+
+      progressBar.value = completed;
+    }
+
+    exercises.forEach(item =>
+      item.addEventListener("change", updateProgress)
+    );
+
+    // Firebase authentication is added in the next step.
+  </script>
 </body>
 </html>
