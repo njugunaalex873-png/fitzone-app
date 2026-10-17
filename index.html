@@ -36,6 +36,16 @@ const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 <body>
 <h1>💪 FitZone</h1>
+  <div class="card">
+  <h2>🔐 Sign in to FitZone</h2>
+  <input id="email" type="email" placeholder="Email address" required>
+  <br><br>
+  <input id="password" type="password" placeholder="Password" required>
+  <br><br>
+  <button type="button" onclick="signIn()">Sign In</button>
+  <button type="button" onclick="signUp()">Create Account</button>
+  <p id="authMessage">Sign in or create your account.</p>
+  </div>
 <p>Your fitness journey starts here.</p>
 <div class="card">
 <h2>Today's workout</h2>
