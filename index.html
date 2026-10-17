@@ -38,6 +38,31 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
+  window.signUp = async function () {
+  const email = document.getElementById("email").value;
+  const password = document.getElementById("password").value;
+  const message = document.getElementById("authMessage");
+
+  try {
+    await createUserWithEmailAndPassword(auth, email, password);
+    message.textContent = "Account created successfully!";
+  } catch (error) {
+    message.textContent = error.message;
+  }
+};
+
+window.signIn = async function () {
+  const email = document.getElementById("email").value;
+  const password = document.getElementById("password").value;
+  const message = document.getElementById("authMessage");
+
+  try {
+    await signInWithEmailAndPassword(auth, email, password);
+    message.textContent = "Signed in successfully!";
+  } catch (error) {
+    message.textContent = error.message;
+  }
+};
 <body>
 <h1>💪 FitZone</h1>
   <div class="card">
